@@ -2,13 +2,13 @@
 **********************************************************************
 **********************************************************************
 
-Saltar transacciones sin autorización
-FM: rs_hdsys_call_tc_variant
+*.Saltar transacciones sin autorización
+  FM: rs_hdsys_call_tc_variant
 
 **********************************************************************
 **********************************************************************
 
-Llamar método desde AMDP
+*.Llamar método desde AMDP
 NEW zcl_amdp_bc_params( )->get_constant(
       EXPORTING im_progname = 'ZFI001'			"Id desarrollo
                 im_constant = gc_constant		"Nombre constante
@@ -30,13 +30,13 @@ NEW zcl_amdp_bc_params( )->get_range(
 **********************************************************************
 **********************************************************************
 
-Convertir parámetro a rango
-lr_fkart = value #( ( sign = 'I' option = 'EQ' low = gv_fkart ) ).
+*.Convertir parámetro a rango
+  lr_fkart = value #( ( sign = 'I' option = 'EQ' low = gv_fkart ) ).
 
 **********************************************************************
 **********************************************************************
 
-CONSTRUIR WHERE DINÁMICO
+*.CONSTRUIR WHERE DINÁMICO
 DATA(lv_where) = cl_shdb_seltab=>combine_seltabs(
       it_named_seltabs = VALUE #(
         ( name = 'WERK'             dref = REF #( is_prmtrs-werks ) )           "Centro
@@ -60,8 +60,8 @@ DATA(lv_where) = cl_shdb_seltab=>combine_seltabs(
 **********************************************************************
 **********************************************************************
 
-READ TABLE POR INDEX
-	TRY.
+*.READ TABLE POR INDEX
+    TRY.
       DATA(ls_lotsel) = gt_lotsel[ 1 ].
       CATCH cx_sy_itab_line_not_found INTO DATA(lo_ref).
     ENDTRY.
@@ -69,14 +69,14 @@ READ TABLE POR INDEX
 **********************************************************************
 **********************************************************************
 
-CONVERSIÓN RÁPIDA DE FORMATO
-DATA(lv_nlenr) = |{ <lfs_ua_lotes>-nlenr ALPHA = OUT }|.
+*.CONVERSIÓN RÁPIDA DE FORMATO
+  DATA(lv_nlenr) = |{ <lfs_ua_lotes>-nlenr ALPHA = OUT }|.
 
 **********************************************************************
 **********************************************************************
 
-CAPTURAR MENSAJES DE UN MODULO DE FUNCIÓN
-error_message = 99
+*.CAPTURAR MENSAJES DE UN MODULO DE FUNCIÓN
+  error_message = 99
 
 **********************************************************************
 **********************************************************************
@@ -87,23 +87,24 @@ SM04 - Ver usuarios activos en el sistema
 **********************************************************************
 **********************************************************************
 
-REDUCE - Sumatoria de valores en una tabla interna
-DATA(cantidad_hijas_2) = REDUCE ltap_nista( INIT val TYPE ltap_nista
-                                         FOR wa_hija IN  lti_uah
-                                         NEXT val = val + wa_hija-nista ).
+*.REDUCE - Sumatoria de valores en una tabla interna
+  DATA(cantidad_hijas_2) = REDUCE ltap_nista( INIT val TYPE ltap_nista
+                                           FOR wa_hija IN  lti_uah
+                                           NEXT val = val + wa_hija-nista ).
 										 
 **********************************************************************
 **********************************************************************										 
-Radio Button Dinámico
+*.Radio Button Dinámico
 
-1. Evento At selection Screen Output
+*.1. Evento At selection Screen Output
 *----------------------------------------------------------------------*
 * Eventos: AT SELECTION-SCREEN ON VALUE-REQUEST
 *----------------------------------------------------------------------*
-	AT SELECTION-SCREEN OUTPUT.
+    AT SELECTION-SCREEN OUTPUT.
     PERFORM on_value_request_radiobutton.
-2. Radio button en include TOP
-	SELECTION-SCREEN: BEGIN OF BLOCK bloq_general WITH FRAME TITLE text-001.
+    
+*.2. Radio button en include TOP
+    SELECTION-SCREEN: BEGIN OF BLOCK bloq_general WITH FRAME TITLE text-001.
 
     SELECT-OPTIONS:
       so_matnr      FOR gv_matnr            MODIF ID op1,
@@ -124,8 +125,9 @@ Radio Button Dinámico
       radio2    RADIOBUTTON GROUP g1.
 
   SELECTION-SCREEN: END OF BLOCK bloq_radio.
-3. Perform on_value_request 
-	IF radio1 = abap_true.
+  
+*.3.Perform on_value_request 
+  IF radio1 = abap_true.
     LOOP AT SCREEN.
       IF screen-group1 = 'OP1'.
         screen-active = '1'.
@@ -151,8 +153,8 @@ Radio Button Dinámico
 
 **********************************************************************
 **********************************************************************
-IMPRIMIR CDS RÁPIDAMENTE
-cl_salv_gui_table_ida=>create_for_cds_view( 'Nombre_cds' )->fullscreen( )->display( ).
+*.IMPRIMIR CDS RÁPIDAMENTE
+  cl_salv_gui_table_ida=>create_for_cds_view( 'Nombre_cds' )->fullscreen( )->display( ).
 
 
 
